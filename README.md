@@ -2,10 +2,10 @@
 
 Сайт-визитка в стиле Biolink: аватарка из Telegram + 6 кнопок на соцсети (2 ряда по 3) и 3 пустых кнопки-заглушки под будущие ссылки.
 
-**Живой сайт:** https://inepcia.netlify.app
+**Живой сайт:** https://inepciaion.github.io/inepcia-bio
 **Репозиторий:** https://github.com/inepciaion/inepcia-bio
 
-Деплой автоматический: `git push` в `main` → Netlify публикует обновление.
+Деплой автоматический: `git push` в `main` → GitHub Pages публикует обновление (~30 секунд).
 
 ## Структура
 
@@ -42,15 +42,18 @@ npx http-server -p 8080
 
 ## Деплой (уже настроен)
 
-- Сайт на Netlify: **https://inepcia.netlify.app** (проект `inepcia`, панель — https://app.netlify.com/projects/inepcia)
-- Репозиторий GitHub связан с Netlify: ветка `main`, publish directory `.`, build command пустая.
-- Как обновить сайт:
+**Основной хостинг — GitHub Pages:** https://inepciaion.github.io/inepcia-bio
+
+- Источник: ветка `main`, корень репозитория (включено через API GitHub).
+- Обновление:
   ```powershell
   cd C:\Users\user\inepcia-bio
   git add -A
   git commit -m "update: ..."
   git push
   ```
-  Через ~30 секунд обновление будет на проде (Deploys в панели Netlify).
+  Через ~30 секунд обновление будет на проде (https://github.com/inepciaion/inepcia-bio/pages).
 
-Ручной деплой без git тоже работает: `netlify deploy --prod`.
+**Netlify (старый хостинг, заблокирован):** https://inepcia.netlify.app
+- Сайт там остался со старой версией. Причина отключения — исчерпаны кредиты бесплатного плана (300/мес): их потратили сборки проекта `inepciaion-bio` (16 шт.) и этого сайта.
+- Кредиты сбросятся **11 декабря**. Чтобы вернуться: в панели Netlify заново задеплоить (`netlify deploy --prod`) или подключить репозиторий заново — URL `inepcia.netlify.app` пока сохраняется.
