@@ -247,6 +247,15 @@ body {
   transition: transform .22s, filter .22s;
 }
 
+/* иконки, которые рисуются штрихами (например, глобус) */
+.btn svg.stroke-icon {
+  fill: none;
+  stroke: var(--brand);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* свечение бренда при наведении */
 .btn::after {
   content: "";
