@@ -121,10 +121,8 @@ body {
   position: absolute;
   inset: -3px;
   border-radius: 50%;
-  background: conic-gradient(from var(--angle, 0deg), #7c5cff, #22d3ee, #ff2d78, #7c5cff);
-  filter: blur(0.4px);
-  animation: spin 7s linear infinite;
-  opacity: .9;
+  background: #fff;
+  opacity: 1;
 }
 
 .avatar {
