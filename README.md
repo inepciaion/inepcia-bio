@@ -1,6 +1,6 @@
 # inepcia-bio
 
-Сайт-визитка в стиле Biolink: аватарка из Telegram + 6 кнопок на соцсети (2 ряда по 3).
+Сайт-визитка в стиле Biolink: аватарка из Telegram + 6 кнопок на соцсети (2 ряда по 3) и 3 пустых кнопки-заглушки под будущие ссылки.
 
 **Живой сайт:** https://inepcia.netlify.app
 **Репозиторий:** https://github.com/inepciaion/inepcia-bio

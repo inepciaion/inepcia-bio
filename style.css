@@ -109,11 +109,9 @@ body {
 .avatar-ring {
   position: absolute;
   inset: -5px;
-  border-radius: 34px;
-  background: conic-gradient(from 0deg, #7c5cff, #22d3ee, #ff2d78, #7c5cff);
-  filter: blur(0.4px);
-  animation: spin 7s linear infinite;
-  opacity: .9;
+  border-radius: 50%;
+  background: #000;
+  opacity: 1;
 }
 
 .avatar {
@@ -121,7 +119,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 30px;
+  border-radius: 50%;
   border: 3px solid #0b0c12;
   display: block;
   background: #12131a;
@@ -136,6 +134,7 @@ body {
   font-weight: 900;
   color: #fff;
   background: linear-gradient(135deg, #7c5cff, #22d3ee);
+  border-radius: 50%;
 }
 .avatar-fallback[hidden] { display: none; }
 
@@ -258,6 +257,23 @@ body {
 .btn:hover svg { transform: scale(1.12); filter: drop-shadow(0 0 8px var(--glow)); }
 
 .btn:active { transform: translateY(-1px) scale(.97); }
+
+/* пустые кнопки-заглушки */
+.btn-empty {
+  --brand: rgba(255, 255, 255, .25);
+  --glow: rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, 0.02);
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, .16);
+  min-height: 66px;
+  cursor: default;
+}
+.btn-empty:hover {
+  transform: none;
+  border-color: rgba(255, 255, 255, .3);
+  box-shadow: none;
+}
+.btn-empty::after { display: none; }
 
 /* клик-волна */
 .ripple {
