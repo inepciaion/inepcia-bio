@@ -59,15 +59,17 @@ document.querySelectorAll(".btn").forEach((btn) => {
   });
 });
 
-// ---------- Лёгкий параллакс фоновых пятен за курсором ----------
-const blobs = document.querySelectorAll(".blob");
-if (window.matchMedia("(pointer: fine)").matches) {
+// ---------- Лёгкий параллакс фона за курсором ----------
+const bg = document.querySelector(".bg");
+if (bg && window.matchMedia("(pointer: fine)").matches) {
+  let raf = null;
   window.addEventListener("mousemove", (e) => {
     const x = (e.clientX / window.innerWidth - 0.5) * 2;
     const y = (e.clientY / window.innerHeight - 0.5) * 2;
-    blobs.forEach((b, i) => {
-      const depth = (i + 1) * 10;
-      b.style.translate = `${x * depth}px ${y * depth}px`;
+    if (raf) return;
+    raf = requestAnimationFrame(() => {
+      bg.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
+      raf = null;
     });
   });
 }
