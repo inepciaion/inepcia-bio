@@ -1,6 +1,31 @@
 // ---------- Год в подвале ----------
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ---------- Имя «печатается» при заходе на сайт ----------
+const nameEl = document.querySelector(".name");
+const fullName = (nameEl.textContent || "").trim();
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (nameEl && fullName && !reduceMotion) {
+  nameEl.textContent = "";
+  nameEl.classList.add("typing");
+
+  let i = 0;
+  const type = () => {
+    i += 1;
+    nameEl.textContent = fullName.slice(0, i);
+    if (i < fullName.length) {
+      // лёгкая «нервная» пауза между буквами
+      const pause = 90 + Math.random() * 90;
+      setTimeout(type, pause);
+    } else {
+      // оставляем мигающий курсор на секунду, потом убираем
+      setTimeout(() => nameEl.classList.remove("typing"), 1200);
+    }
+  };
+  setTimeout(type, 500);
+}
+
 // ---------- Аватарка: подстраховка ----------
 // 1) пробуем фото из Telegram (cdn)
 // 2) если не загрузилось — локальный файл assets/avatar.jpg

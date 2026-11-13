@@ -110,7 +110,7 @@ body {
   position: absolute;
   inset: -5px;
   border-radius: 50%;
-  background: #000;
+  background: #fff;
   opacity: 1;
 }
 
@@ -120,7 +120,7 @@ body {
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #0b0c12;
+  border: 3px solid #fff;
   display: block;
   background: #12131a;
 }
@@ -159,6 +159,16 @@ body {
   font-weight: 500;
   letter-spacing: .08em;
 }
+
+/* курсор печатающегося имени */
+.name.typing::after {
+  content: "▌";
+  color: var(--accent-2);
+  font-weight: 700;
+  margin-left: 6px;
+  animation: blink .75s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
 
 .status {
   display: inline-flex;
