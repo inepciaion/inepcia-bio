@@ -67,128 +67,104 @@ body {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.82;
+  opacity: 0.58;
+  pointer-events: none;
 }
 
 .lava-blob {
   position: absolute;
+  left: 0;
   top: 0;
   display: block;
   border-radius: 50%;
   mix-blend-mode: screen;
-  filter: blur(28px) saturate(145%);
-  will-change: transform, border-radius, translate;
-  animation: lava-fall var(--dur, 26s) linear infinite;
-  animation-delay: var(--delay, 0s);
-  transition: translate .16s linear;
+  filter: blur(7px) saturate(170%);
+  transform-origin: 50% 50%;
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+/* глянцевый блик — капля читается как объёмный воск */
+.lava-blob::after {
+  content: "";
+  position: absolute;
+  inset: 12% 48% 46% 14%;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 72%);
+  filter: blur(5px);
+  opacity: 0.5;
 }
 
 .lava-blob:nth-child(1) {
-  left: 1%;
   width: clamp(240px, 34vmin, 460px);
   height: clamp(220px, 30vmin, 420px);
-  background: radial-gradient(circle at 46% 40%, #9d75ff 0%, #6a34e0 34%, #40209a 66%, rgba(40, 16, 96, 0.55) 88%);
-  --dur: 34s;
-  --delay: -3s;
+  background: radial-gradient(circle at 50% 44%, #b994ff 0%, #7a42ec 44%, #4a229f 76%, rgba(48, 20, 110, 0.95) 93%, rgba(48, 20, 110, 0) 100%);
 }
 
 .lava-blob:nth-child(2) {
-  left: 12%;
   width: clamp(150px, 22vmin, 300px);
   height: clamp(140px, 20vmin, 280px);
-  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
-  --dur: 27s;
-  --delay: -14s;
+  background: radial-gradient(circle at 50% 44%, #7feaf9 0%, #22b8d6 44%, #0b6b86 76%, rgba(8, 58, 76, 0.95) 93%, rgba(8, 58, 76, 0) 100%);
 }
 
 .lava-blob:nth-child(3) {
-  left: 21%;
   width: clamp(200px, 28vmin, 380px);
   height: clamp(190px, 26vmin, 360px);
-  background: radial-gradient(circle at 48% 38%, #ff6d9f 0%, #dd1a61 38%, #8f0f45 70%, rgba(90, 8, 40, 0.55) 90%);
-  --dur: 31s;
-  --delay: -8s;
+  background: radial-gradient(circle at 50% 44%, #ff8fb2 0%, #e02268 44%, #95104a 76%, rgba(95, 8, 44, 0.95) 93%, rgba(95, 8, 44, 0) 100%);
 }
 
 .lava-blob:nth-child(4) {
-  left: 32%;
   width: clamp(120px, 17vmin, 240px);
   height: clamp(110px, 16vmin, 220px);
-  background: radial-gradient(circle at 50% 42%, #b78dff 0%, #7c46f0 38%, #43209f 70%, rgba(40, 18, 100, 0.55) 90%);
-  --dur: 24s;
-  --delay: -19s;
+  background: radial-gradient(circle at 50% 44%, #c2a3ff 0%, #8a5cff 44%, #4a259e 76%, rgba(40, 18, 100, 0.95) 93%, rgba(40, 18, 100, 0) 100%);
 }
 
 .lava-blob:nth-child(5) {
-  left: 41%;
   width: clamp(180px, 25vmin, 340px);
   height: clamp(170px, 24vmin, 320px);
-  background: radial-gradient(circle at 52% 38%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
-  --dur: 36s;
-  --delay: -6s;
+  background: radial-gradient(circle at 50% 44%, #7feaf9 0%, #22b8d6 44%, #0b6b86 76%, rgba(8, 58, 76, 0.95) 93%, rgba(8, 58, 76, 0) 100%);
 }
 
 .lava-blob:nth-child(6) {
-  left: 50%;
   width: clamp(110px, 15vmin, 210px);
   height: clamp(100px, 14vmin, 200px);
-  background: radial-gradient(circle at 52% 38%, #ff719e 0%, #e02368 38%, #8f0f45 70%, rgba(90, 8, 42, 0.55) 90%);
-  --dur: 22s;
-  --delay: -12s;
+  background: radial-gradient(circle at 50% 44%, #ff8fb2 0%, #e02268 44%, #95104a 76%, rgba(95, 8, 44, 0.95) 93%, rgba(95, 8, 44, 0) 100%);
 }
 
 .lava-blob:nth-child(7) {
-  left: 57%;
   width: clamp(220px, 31vmin, 420px);
   height: clamp(210px, 28vmin, 390px);
-  background: radial-gradient(circle at 46% 40%, #9d75ff 0%, #6a34e0 34%, #40209a 66%, rgba(40, 16, 96, 0.55) 88%);
-  --dur: 33s;
-  --delay: -22s;
+  background: radial-gradient(circle at 50% 44%, #b994ff 0%, #7a42ec 44%, #4a229f 76%, rgba(48, 20, 110, 0.95) 93%, rgba(48, 20, 110, 0) 100%);
 }
 
 .lava-blob:nth-child(8) {
-  left: 68%;
   width: clamp(150px, 21vmin, 290px);
   height: clamp(140px, 19vmin, 270px);
-  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
-  --dur: 28s;
-  --delay: -2s;
+  background: radial-gradient(circle at 50% 44%, #7feaf9 0%, #22b8d6 44%, #0b6b86 76%, rgba(8, 58, 76, 0.95) 93%, rgba(8, 58, 76, 0) 100%);
 }
 
 .lava-blob:nth-child(9) {
-  left: 77%;
   width: clamp(190px, 27vmin, 360px);
   height: clamp(180px, 25vmin, 340px);
-  background: radial-gradient(circle at 48% 38%, #ff6d9f 0%, #dd1a61 38%, #8f0f45 70%, rgba(90, 8, 40, 0.55) 90%);
-  --dur: 30s;
-  --delay: -16s;
+  background: radial-gradient(circle at 50% 44%, #ff8fb2 0%, #e02268 44%, #95104a 76%, rgba(95, 8, 44, 0.95) 93%, rgba(95, 8, 44, 0) 100%);
 }
 
 .lava-blob:nth-child(10) {
-  left: 86%;
   width: clamp(120px, 17vmin, 240px);
   height: clamp(110px, 16vmin, 220px);
-  background: radial-gradient(circle at 50% 42%, #b78dff 0%, #7c46f0 38%, #43209f 70%, rgba(40, 18, 100, 0.55) 90%);
-  --dur: 25s;
-  --delay: -9s;
+  background: radial-gradient(circle at 50% 44%, #c2a3ff 0%, #8a5cff 44%, #4a259e 76%, rgba(40, 18, 100, 0.95) 93%, rgba(40, 18, 100, 0) 100%);
 }
 
 .lava-blob:nth-child(11) {
-  left: 93%;
   width: clamp(170px, 24vmin, 320px);
   height: clamp(160px, 22vmin, 300px);
-  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
-  --dur: 38s;
-  --delay: -25s;
+  background: radial-gradient(circle at 50% 44%, #7feaf9 0%, #22b8d6 44%, #0b6b86 76%, rgba(8, 58, 76, 0.95) 93%, rgba(8, 58, 76, 0) 100%);
 }
 
 .lava-blob:nth-child(12) {
-  left: 27%;
   width: clamp(100px, 14vmin, 190px);
   height: clamp(95px, 13vmin, 180px);
-  background: radial-gradient(circle at 50% 42%, #c9a4ff 0%, #8a5cff 40%, #4a259e 72%, rgba(40, 18, 100, 0.5) 90%);
-  --dur: 20s;
-  --delay: -5s;
+  background: radial-gradient(circle at 50% 44%, #c2a3ff 0%, #8a5cff 44%, #4a259e 76%, rgba(40, 18, 100, 0.95) 93%, rgba(40, 18, 100, 0) 100%);
 }
 
 /* лёгкое тёплое свечение «дна» лампы */
@@ -206,40 +182,12 @@ body {
 
 /* на узких экранах воск приглушаем, чтобы текст оставался читаемым */
 @media (max-width: 640px) {
-  .lava { opacity: 0.5; }
-  .lava-blob { filter: blur(22px) saturate(140%); }
+  .lava { opacity: 0.55; }
+  .lava-blob { filter: blur(14px) saturate(150%); }
   .bg::before {
     background:
       radial-gradient(ellipse 100% 85% at 50% 46%, transparent 26%, rgba(7, 8, 13, 0.74) 100%),
       radial-gradient(ellipse 120% 55% at 50% 116%, rgba(255, 45, 120, 0.10), transparent 72%);
-  }
-}
-
-/* «течение»: капли спускаются сверху вниз, покачиваясь и меняя форму */
-@keyframes lava-fall {
-  0% {
-    transform: translate3d(0, -50vh, 0) scale(0.94, 1.02) rotate(0deg);
-    border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
-    opacity: 0;
-  }
-  10% { opacity: 1; }
-  30% {
-    transform: translate3d(-1.6vw, -12vh, 0) scale(1.05, 0.96) rotate(2deg);
-    border-radius: 46% 54% 68% 32% / 62% 38% 64% 36%;
-  }
-  55% {
-    transform: translate3d(1.6vw, 28vh, 0) scale(0.97, 1.07) rotate(-2deg);
-    border-radius: 58% 42% 40% 60% / 44% 58% 42% 58%;
-  }
-  80% {
-    transform: translate3d(-1.2vw, 72vh, 0) scale(1.06, 0.97) rotate(3deg);
-    border-radius: 40% 60% 56% 44% / 66% 34% 62% 38%;
-  }
-  92% { opacity: 1; }
-  100% {
-    transform: translate3d(1vw, 130vh, 0) scale(1, 1.05) rotate(-1deg);
-    border-radius: 62% 38% 50% 50% / 40% 62% 38% 62%;
-    opacity: 0;
   }
 }
 
@@ -249,7 +197,7 @@ body {
   max-width: 460px;
   padding: 38px 30px 26px;
   border-radius: 30px;
-  background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+  background: linear-gradient(160deg, rgba(14, 16, 26, 0.66), rgba(10, 12, 20, 0.44));
   border: 1px solid var(--border);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -510,7 +458,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
-  .lava-blob { animation: none !important; transform: none; }
 }
 
 /* ============ МОБИЛЬНЫЕ ============ */
