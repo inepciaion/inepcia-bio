@@ -65,72 +65,130 @@ body {
 /* ---- воск в лампе ---- */
 .lava {
   position: absolute;
-  inset: -20% -6%;
+  inset: 0;
   z-index: 1;
-  opacity: 1;
+  opacity: 0.82;
 }
 
 .lava-blob {
   position: absolute;
+  top: 0;
   display: block;
   border-radius: 50%;
   mix-blend-mode: screen;
-  filter: blur(15px) saturate(155%);
-  will-change: transform, border-radius;
-  animation: lava-rise var(--dur, 24s) ease-in-out infinite alternate;
+  filter: blur(28px) saturate(145%);
+  will-change: transform, border-radius, translate;
+  animation: lava-fall var(--dur, 26s) linear infinite;
   animation-delay: var(--delay, 0s);
+  transition: translate .16s linear;
 }
 
 .lava-blob:nth-child(1) {
-  left: -24%;
-  top: 18%;
-  width: clamp(360px, 64vmin, 780px);
-  height: clamp(340px, 56vmin, 700px);
-  background: radial-gradient(circle at 46% 40%, #9d75ff 0%, #6a34e0 34%, #40209a 66%, rgba(40, 16, 96, 0.6) 88%);
-  --dur: 31s;
-  --delay: -4s;
+  left: 1%;
+  width: clamp(240px, 34vmin, 460px);
+  height: clamp(220px, 30vmin, 420px);
+  background: radial-gradient(circle at 46% 40%, #9d75ff 0%, #6a34e0 34%, #40209a 66%, rgba(40, 16, 96, 0.55) 88%);
+  --dur: 34s;
+  --delay: -3s;
 }
 
 .lava-blob:nth-child(2) {
-  right: -26%;
-  top: 32%;
-  width: clamp(340px, 60vmin, 740px);
-  height: clamp(280px, 46vmin, 560px);
-  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.58) 88%);
-  --dur: 36s;
-  --delay: -13s;
+  left: 12%;
+  width: clamp(150px, 22vmin, 300px);
+  height: clamp(140px, 20vmin, 280px);
+  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
+  --dur: 27s;
+  --delay: -14s;
 }
 
 .lava-blob:nth-child(3) {
-  left: -10%;
-  top: 60%;
-  width: clamp(300px, 50vmin, 620px);
-  height: clamp(280px, 44vmin, 540px);
+  left: 21%;
+  width: clamp(200px, 28vmin, 380px);
+  height: clamp(190px, 26vmin, 360px);
   background: radial-gradient(circle at 48% 38%, #ff6d9f 0%, #dd1a61 38%, #8f0f45 70%, rgba(90, 8, 40, 0.55) 90%);
-  --dur: 27s;
+  --dur: 31s;
   --delay: -8s;
-  opacity: 0.95;
 }
 
 .lava-blob:nth-child(4) {
-  right: -6%;
-  top: -16%;
-  width: clamp(260px, 42vmin, 520px);
-  height: clamp(240px, 36vmin, 450px);
+  left: 32%;
+  width: clamp(120px, 17vmin, 240px);
+  height: clamp(110px, 16vmin, 220px);
   background: radial-gradient(circle at 50% 42%, #b78dff 0%, #7c46f0 38%, #43209f 70%, rgba(40, 18, 100, 0.55) 90%);
   --dur: 24s;
-  --delay: -2s;
+  --delay: -19s;
 }
 
 .lava-blob:nth-child(5) {
-  left: 22%;
-  top: 72%;
-  width: clamp(300px, 48vmin, 600px);
-  height: clamp(260px, 40vmin, 500px);
+  left: 41%;
+  width: clamp(180px, 25vmin, 340px);
+  height: clamp(170px, 24vmin, 320px);
+  background: radial-gradient(circle at 52% 38%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
+  --dur: 36s;
+  --delay: -6s;
+}
+
+.lava-blob:nth-child(6) {
+  left: 50%;
+  width: clamp(110px, 15vmin, 210px);
+  height: clamp(100px, 14vmin, 200px);
   background: radial-gradient(circle at 52% 38%, #ff719e 0%, #e02368 38%, #8f0f45 70%, rgba(90, 8, 42, 0.55) 90%);
-  --dur: 34s;
-  --delay: -18s;
-  opacity: 0.9;
+  --dur: 22s;
+  --delay: -12s;
+}
+
+.lava-blob:nth-child(7) {
+  left: 57%;
+  width: clamp(220px, 31vmin, 420px);
+  height: clamp(210px, 28vmin, 390px);
+  background: radial-gradient(circle at 46% 40%, #9d75ff 0%, #6a34e0 34%, #40209a 66%, rgba(40, 16, 96, 0.55) 88%);
+  --dur: 33s;
+  --delay: -22s;
+}
+
+.lava-blob:nth-child(8) {
+  left: 68%;
+  width: clamp(150px, 21vmin, 290px);
+  height: clamp(140px, 19vmin, 270px);
+  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
+  --dur: 28s;
+  --delay: -2s;
+}
+
+.lava-blob:nth-child(9) {
+  left: 77%;
+  width: clamp(190px, 27vmin, 360px);
+  height: clamp(180px, 25vmin, 340px);
+  background: radial-gradient(circle at 48% 38%, #ff6d9f 0%, #dd1a61 38%, #8f0f45 70%, rgba(90, 8, 40, 0.55) 90%);
+  --dur: 30s;
+  --delay: -16s;
+}
+
+.lava-blob:nth-child(10) {
+  left: 86%;
+  width: clamp(120px, 17vmin, 240px);
+  height: clamp(110px, 16vmin, 220px);
+  background: radial-gradient(circle at 50% 42%, #b78dff 0%, #7c46f0 38%, #43209f 70%, rgba(40, 18, 100, 0.55) 90%);
+  --dur: 25s;
+  --delay: -9s;
+}
+
+.lava-blob:nth-child(11) {
+  left: 93%;
+  width: clamp(170px, 24vmin, 320px);
+  height: clamp(160px, 22vmin, 300px);
+  background: radial-gradient(circle at 54% 40%, #5fe0f2 0%, #16b0cc 36%, #0a6a84 68%, rgba(8, 56, 74, 0.55) 88%);
+  --dur: 38s;
+  --delay: -25s;
+}
+
+.lava-blob:nth-child(12) {
+  left: 27%;
+  width: clamp(100px, 14vmin, 190px);
+  height: clamp(95px, 13vmin, 180px);
+  background: radial-gradient(circle at 50% 42%, #c9a4ff 0%, #8a5cff 40%, #4a259e 72%, rgba(40, 18, 100, 0.5) 90%);
+  --dur: 20s;
+  --delay: -5s;
 }
 
 /* лёгкое тёплое свечение «дна» лампы */
@@ -157,23 +215,31 @@ body {
   }
 }
 
-/* «кипение»: капли медленно дышат, покачиваются и меняют форму */
-@keyframes lava-rise {
+/* «течение»: капли спускаются сверху вниз, покачиваясь и меняя форму */
+@keyframes lava-fall {
   0% {
-    transform: translate3d(0, 6%, 0) scale(0.94, 0.88) rotate(0deg);
-    border-radius: 64% 36% 58% 42% / 40% 62% 38% 60%;
+    transform: translate3d(0, -50vh, 0) scale(0.94, 1.02) rotate(0deg);
+    border-radius: 60% 40% 55% 45% / 45% 60% 40% 55%;
+    opacity: 0;
   }
+  10% { opacity: 1; }
   30% {
-    transform: translate3d(4%, -5%, 0) scale(1.05, 1.12) rotate(3deg);
-    border-radius: 42% 58% 72% 28% / 64% 36% 68% 32%;
+    transform: translate3d(-1.6vw, -12vh, 0) scale(1.05, 0.96) rotate(2deg);
+    border-radius: 46% 54% 68% 32% / 62% 38% 64% 36%;
   }
-  62% {
-    transform: translate3d(-5%, 4%, 0) scale(1.09, 0.94) rotate(-3deg);
-    border-radius: 56% 44% 36% 64% / 46% 60% 40% 60%;
+  55% {
+    transform: translate3d(1.6vw, 28vh, 0) scale(0.97, 1.07) rotate(-2deg);
+    border-radius: 58% 42% 40% 60% / 44% 58% 42% 58%;
   }
+  80% {
+    transform: translate3d(-1.2vw, 72vh, 0) scale(1.06, 0.97) rotate(3deg);
+    border-radius: 40% 60% 56% 44% / 66% 34% 62% 38%;
+  }
+  92% { opacity: 1; }
   100% {
-    transform: translate3d(2%, -8%, 0) scale(0.96, 1.12) rotate(2deg);
-    border-radius: 72% 28% 50% 50% / 32% 68% 34% 66%;
+    transform: translate3d(1vw, 130vh, 0) scale(1, 1.05) rotate(-1deg);
+    border-radius: 62% 38% 50% 50% / 40% 62% 38% 62%;
+    opacity: 0;
   }
 }
 

@@ -59,17 +59,50 @@ document.querySelectorAll(".btn").forEach((btn) => {
   });
 });
 
-// ---------- Лёгкий параллакс фона за курсором ----------
-const bg = document.querySelector(".bg");
-if (bg && window.matchMedia("(pointer: fine)").matches) {
-  let raf = null;
-  window.addEventListener("mousemove", (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 2;
-    const y = (e.clientY / window.innerHeight - 0.5) * 2;
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      bg.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
-      raf = null;
+// ---------- Капли воска расступаются перед курсором ----------
+const lavaBlobs = document.querySelectorAll(".lava-blob");
+if (lavaBlobs.length && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+  const RADIUS = 260; // на сколько далеко капля «чувствует» курсор
+  const PUSH = 95; // максимальный сдвиг в сторону
+  let pointer = null;
+  let frame = null;
+
+  const update = () => {
+    frame = null;
+    if (!pointer) return;
+
+    lavaBlobs.forEach((blob) => {
+      const rect = blob.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+
+      // ближайшая к курсору точка капли — так крупные капли реагируют у края
+      const nx = Math.max(rect.left, Math.min(pointer.x, rect.right));
+      const ny = Math.max(rect.top, Math.min(pointer.y, rect.bottom));
+      const edge = Math.hypot(pointer.x - nx, pointer.y - ny);
+
+      if (edge > RADIUS) {
+        if (blob.style.translate) blob.style.translate = "0px 0px";
+        return;
+      }
+
+      const dx = cx - pointer.x;
+      const dy = cy - pointer.y;
+      const dist = Math.hypot(dx, dy) || 1;
+
+      // чем ближе курсор — тем сильнее капля обтекает его
+      const force = (1 - edge / RADIUS) ** 2 * PUSH;
+      blob.style.translate = `${(dx / dist) * force}px ${(dy / dist) * force}px`;
     });
+  };
+
+  window.addEventListener("mousemove", (e) => {
+    pointer = { x: e.clientX, y: e.clientY };
+    if (!frame) frame = requestAnimationFrame(update);
+  });
+
+  window.addEventListener("blur", () => {
+    pointer = null;
+    lavaBlobs.forEach((blob) => (blob.style.translate = "0px 0px"));
   });
 }
