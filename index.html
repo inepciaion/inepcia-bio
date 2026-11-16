@@ -10,8 +10,16 @@
   <meta property="og:title" content="inepcia" />
   <meta property="og:description" content="Все мои ссылки в одном месте" />
   <meta property="og:image" content="assets/avatar.jpg" />
-  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f5f5f7" id="theme-color" />
+  <script>
+    // тема до первой отрисовки: сохранённый выбор или системная настройка
+    (function () {
+      var saved = null;
+      try { saved = localStorage.getItem("theme"); } catch (e) {}
+      var dark = saved ? saved === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    })();
+  </script>
 
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,6 +30,17 @@
 <body>
   <!-- фон страницы: светлая подложка Apple -->
   <div class="bg" aria-hidden="true"></div>
+
+  <!-- переключение светлой / тёмной темы -->
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Тёмная тема" title="Тёмная тема">
+    <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </svg>
+  </button>
 
   <main class="card">
     <!-- АВАТАРКА (квадрат) -->

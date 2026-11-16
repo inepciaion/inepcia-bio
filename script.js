@@ -1,6 +1,49 @@
 // ---------- Год в подвале ----------
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ---------- Переключение светлой / тёмной темы ----------
+const themeToggle = document.getElementById("theme-toggle");
+const themeMeta = document.getElementById("theme-color");
+const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+
+const savedTheme = () => {
+  try {
+    return localStorage.getItem("theme");
+  } catch (e) {
+    return null;
+  }
+};
+
+const applyTheme = (theme) => {
+  const dark = theme === "dark";
+  document.documentElement.setAttribute("data-theme", theme);
+  if (themeMeta) themeMeta.setAttribute("content", dark ? "#000000" : "#f5f5f7");
+  if (themeToggle) {
+    const label = dark ? "Светлая тема" : "Тёмная тема";
+    themeToggle.setAttribute("aria-label", label);
+    themeToggle.setAttribute("title", label);
+    themeToggle.setAttribute("aria-pressed", String(dark));
+  }
+};
+
+applyTheme(document.documentElement.getAttribute("data-theme") || (systemTheme.matches ? "dark" : "light"));
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const next =
+      document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+  });
+}
+
+// пока пользователь не выбрал тему вручную — следуем системной настройке
+systemTheme.addEventListener("change", (e) => {
+  if (!savedTheme()) applyTheme(e.matches ? "dark" : "light");
+});
+
 // ---------- Имя «печатается» при заходе на сайт ----------
 const nameEl = document.querySelector(".name");
 const fullName = (nameEl.textContent || "").trim();
