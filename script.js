@@ -27,22 +27,25 @@ if (nameEl && fullName && !reduceMotion) {
 }
 
 // ---------- Аватарка: подстраховка ----------
-// 1) пробуем фото из Telegram (cdn)
-// 2) если не загрузилось — локальный файл assets/avatar.jpg
-// 3) если и его нет — буква на градиенте
+// 1) сразу показываем локальную копию — круг не пустует, пока грузится Telegram
+// 2) если Telegram отдал свежее фото — подменяем
+// 3) если локального файла нет — буква на градиенте
 const avatar = document.getElementById("avatar");
 const fallback = document.getElementById("avatar-fallback");
-let avatarTriedLocal = false;
+const remoteAvatar = avatar.getAttribute("src");
+
+avatar.src = "assets/avatar.jpg";
 
 avatar.addEventListener("error", () => {
-  if (!avatarTriedLocal) {
-    avatarTriedLocal = true;
-    avatar.src = "assets/avatar.jpg";
-  } else {
-    avatar.hidden = true;
-    fallback.hidden = false;
-  }
+  avatar.hidden = true;
+  fallback.hidden = false;
 });
+
+const avatarProbe = new Image();
+avatarProbe.onload = () => {
+  if (!avatar.hidden) avatar.src = remoteAvatar;
+};
+avatarProbe.src = remoteAvatar;
 
 // ---------- Волна при клике на кнопку ----------
 document.querySelectorAll(".btn").forEach((btn) => {
