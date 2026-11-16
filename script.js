@@ -67,8 +67,10 @@ if (lavaBox && lavaBlobs.length) {
   const GRAVITY = 26; // ускорение свободного падения капли
   const MAX_SPEED = 46; // воск вязкий — выше не разгоняется
   const VISCOSITY = 0.994; // сопротивление среды
-  const CURSOR_RADIUS = 250; // радиус, в котором капля «чувствует» курсор
-  const CURSOR_FORCE = 2400; // сила расталкивания
+  const CURSOR_RADIUS = 230; // зона, где поток начинает огибать курсор
+  const SWIRL = 2400; // касательная сила: воск уходит вбок, а не назад
+  const OUTWARD = 820; // лёгкая составляющая от курсора — «толщина» обода
+  const BARRIER = 5200; // мягкий барьер: в сам курсор воск не заходит
   const finePointer = window.matchMedia("(pointer: fine)").matches;
 
   let width = lavaBox.clientWidth;
@@ -104,10 +106,10 @@ if (lavaBox && lavaBlobs.length) {
 
   const render = (b) => {
     const speed = Math.hypot(b.vx, b.vy);
-    const stretch = Math.min(speed / 240, 0.18); // растяжение по направлению движения
-    const sx = 1 / (1 + stretch * 0.9);
+    const stretch = Math.min(speed / 620, 0.08); // шар почти не деформируется
+    const sx = 1 / (1 + stretch * 0.85);
     const sy = 1 + stretch;
-    const tilt = Math.max(-9, Math.min(9, b.vx * 0.35));
+    const tilt = Math.max(-4, Math.min(4, b.vx * 0.16)); // едва заметный крен
     const fadeIn = Math.min(1, (b.y + b.h) / (b.h * 0.6));
     const fadeOut = Math.min(1, (height - b.y) / (b.h * 0.5));
     const alpha = Math.max(0, Math.min(fadeIn, fadeOut));
@@ -140,19 +142,43 @@ if (lavaBox && lavaBlobs.length) {
         // 2. покачивание течения
         b.vx += Math.sin(time * b.freq + b.phase) * b.sway * dt;
 
-        // 3. курсор отклоняет поток: капля обтекает его и возвращается
+        // 3. курсор — препятствие в потоке: воск плавно обтекает его
         if (finePointer && pointer.active) {
           const cx = b.x + b.w / 2;
           const cy = b.y + b.h / 2;
           const dx = cx - pointer.x;
           const dy = cy - pointer.y;
           const dist = Math.hypot(dx, dy) || 1;
-          const reach = CURSOR_RADIUS + Math.max(b.w, b.h) * 0.25;
+          const nx = dx / dist;
+          const ny = dy / dist;
+
+          const reach = CURSOR_RADIUS + Math.max(b.w, b.h) * 0.35;
+          const keepOut = Math.max(b.w, b.h) * 0.52 + 34; // «толщина» курсора
 
           if (dist < reach) {
-            const force = (1 - dist / reach) ** 2 * CURSOR_FORCE * dt;
-            b.vx += (dx / dist) * force;
-            b.vy += (dy / dist) * force * 0.7;
+            // 0 у барьера → 1 на границе зоны влияния
+            const t = Math.min(1, Math.max(0, (dist - keepOut) / Math.max(1, reach - keepOut)));
+            const falloff = (1 - t) * (1 - t);
+
+            // касательная вдоль потока: над курсором расходимся, под ним сходимся
+            let tx = ny;
+            let ty = -nx;
+            if (ty < 0) {
+              tx = -tx;
+              ty = -ty;
+            }
+
+            const swirl = SWIRL * falloff * dt;
+            b.vx += tx * swirl + nx * OUTWARD * falloff * dt;
+            b.vy += ty * swirl + ny * OUTWARD * falloff * dt;
+          }
+
+          // мягкий барьер: в сам курсор капля не заезжает (но и не отскакивает)
+          if (dist < keepOut) {
+            const over = (keepOut - dist) / keepOut;
+            const push = BARRIER * over * dt;
+            b.vx += nx * push;
+            b.vy += ny * push;
           }
         }
 
@@ -169,6 +195,18 @@ if (lavaBox && lavaBlobs.length) {
 
         b.x += b.vx * dt;
         b.y += b.vy * dt;
+
+        // 5. жёсткая граница курсора: капля не может его накрыть
+        if (finePointer && pointer.active) {
+          const pdx = b.x + b.w / 2 - pointer.x;
+          const pdy = b.y + b.h / 2 - pointer.y;
+          const pdist = Math.hypot(pdx, pdy) || 1;
+          const keep = Math.max(b.w, b.h) * 0.52 + 34;
+          if (pdist < keep) {
+            b.x += (pdx / pdist) * (keep - pdist);
+            b.y += (pdy / pdist) * (keep - pdist);
+          }
+        }
 
         // 6. стенки: капля мягко отталкивается
         const leftEdge = -b.w * 0.45;
